@@ -1,0 +1,92 @@
+	1. Category (Name) --> Done
+	2. Web series(Name, Image, Sub title, description), add check box for more recommendation, add check box for trending, add check box for slider(9 max) --> Done
+3. video list(multiple video according to sub category)
+4. Most watched based on views - Name, Image, Sub Title, description
+5. User (Profile pic, Name, Email, UserID, Phone number), Wallet coins, Transactions( Username, plan, payment, date, transaction id), automatic disable user after deletion
+	6. add plan from admin panel, bonus percentage
+	7. Daily task
+	8. Terms, Privacy Policy  --> Done 
+9. Transection 
+	10. custom notification --> Done
+
+cPanel Credentials
+Username - etern5yx
+Password - pWY+F$zt%8{I
+ shrisolution
+
+
+1. Do sections in side bar of admin panel. 
+Dashboard, 
+Web Series (Name, Information, Sliders, Most recommendation, Trending), 
+Payment (Plans, Bonus), 
+Users, 
+Others (My coupans, Notification (HTML Editor), Privacy policy, terms & conditions).
+
+
+2. Users - Display Payment History, Bonus history, transaction details as per user. [Note: Admin cannot delete or edit user details], Display mode of login, Enable/Disable feature etc.
+
+
+t⁩ 
+Add webseries ma ji checkbutton aaipa, aema haji 1 aavse New release
+tme api banavanu start kari dyo
+
+
+
+1. Slider api ( maximum 9 items)	--> Done
+2. Most Trending api (12 items)		--> Done
+3. Top picks api ( Maximum 6 items)
+4. New Release api					--> Done
+5. Add to favourites api			
+6. get favourites api
+7. Terms api						--> Done
+8. privacy policy api				--> Done
+9. search api						--> Done
+
+Postman Collection: https://we.tl/t-fNfj5fvQfW
+
+
+favourites and Top picks aa 2 ni api baki che
+
+
+shrisolution.in/MovieBites/api.php?get_clips
+
+w_id
+
+
+
+
+
+Get Profile (Couns)
+Login			
+Membership		--> 
+Plans			-->
+Add to Favorite	--> 
+Favorite list	--> 
+Remove Favorite	--> 
+View 			--> 
+
+
+get_plan
+PR: user_country
+
+get_membership
+PR: user_country
+
+add_views
+PR: user_id,w_id
+
+add_to_favorite
+PR: user_id,w_id
+
+remove_to_favorite
+PR: user_id,w_id
+
+favorite_list
+PR: user_id
+
+
+Response: https://prnt.sc/86UfUn3i6bMZ
+
+
+
+

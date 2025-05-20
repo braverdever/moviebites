@@ -1,0 +1,44 @@
+{
+	"info": {
+		"_postman_id": "82daf376-ea03-4154-9a04-4449953912a3",
+		"name": "Arget_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "allwebseries",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "1",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "shrisolution.in/MovieBites/api.php?allwebseries",
+					"host": [
+						"shrisolution",
+						"in"
+					],
+					"path": [
+						"MovieBites",
+						"api.php"
+					],
+					"query": [
+						{
+							"key": "allwebseries",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

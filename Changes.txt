@@ -1,0 +1,110 @@
+Changes in Admin Panel
+Main screen
+•
+
+Change logo in admin panel	--> Done
+--> Done
+•
+
+Once login is done, if user closes tab, login will be asked again.
+Side Bar
+
+•
+
+Add Nested Menu in web series 
+--> Done
+•
+
+Menu Name - More Recommendation, Most Trending, New Release, Top Picks,
+Spring into Saturday, Banner(Maximum 8 web series can be selected).
+Inside this, display web series details with episode list, with checkboxes. If
+checkboxes if unchecked, episode will not be displayed on app side. But in admin
+panel will be displayed.
+
+--> Done
+
+•
+
+Category Screen
+•
+
+In Add category, add one more Dropdown named Type (Movies & Shows). Category
+will be added once they select from dropdown.
+
+•
+•
+
+In category list, Type will be displayed beside category column.
+Add one button, to display all movies or shows category.
+
+Web series
+1. Display type in list of web series page.
+--> Done
+
+2. Add Select type drop down, above category drop down.
+--> Done
+
+3. Edit – instead of name, display Web series name & in box Enter web series name.
+--> Done
+
+4. Edit – instead of image, display cover image & in box Select cover image. Display
+preview of image below, with note. (Accepted formats Jpg or png with dimensions
+326x566)
+--> Done
+
+5. Edit – instead of sub title, display Web series short description. Add note below –
+one line description.
+--> Done
+
+6. Edit – instead of description, display Web series description. Box must be scrollable
+with number of lines.
+--> Done
+
+7. Checkboxes – More Recommendation, Most Trending, New Release, Top Picks,
+Spring into Saturday, Banner(Maximum 8 web series can be selected). Add note
+below (One box with selection is recommended).
+--> Done 
+
+8. Remove is Paid & number.
+--> Done
+
+
+
+
+
+9. In video section, display one button beside named Add Clips. Beside add clips
+display drop down ( how much clips section to add (1 to 100)).
+
+10. In clips section, display episode number box, is Paid checkbox, clip url box. Please
+note – Clips are paid not full web series. We will send link. If episode number is
+added randomly, in the display section in nested menu episodes must be displayed
+in order.
+
+11. Add some random selection like for is paid section, place select all, 1 to 10, random
+selection, 20 to 50 etc.
+
+12. In web series list, display total number of clips added.
+
+Place settings in side menu bar, inside settings display terms, privacy policy, daily task.
+Place Notification in side menu bar, inside place html editor.
+In dashboard, display categories count, web series count, Banners count, Users count.
+And in dashboard
+•
+•
+
+Category list, change it to Categories and count, remove sub line
+Web series list, change it to web series and count, remove sub line
+
+•
+
+Add Banners and count, remove sub line
+
+•
+
+Users list, change it to Users and count, remove sub line
+
+Every other screen contains 2 display names, remove one of them. Keep only 1 name.
+Currently, image preview not displaying. Pages nested menu doesn’t work properly.
+Please remove nested menu from pages. Move all pages to settings as mentioned above.
+
+

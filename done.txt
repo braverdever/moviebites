@@ -1,0 +1,76 @@
+CREATE TABLE `tbl_views` (
+  `view_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `w_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+COMMIT;
+
+
+ALTER TABLE `tbl_views`
+  ADD PRIMARY KEY (`view_id`);
+
+
+ALTER TABLE `tbl_views`
+  MODIFY `view_id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+
+CREATE TABLE `tbl_favorite` (
+  `f_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `w_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `tbl_favorite`
+  ADD PRIMARY KEY (`f_id`);
+
+
+ALTER TABLE `tbl_favorite`
+  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+CREATE TABLE `tbl_transections` (
+  `t_id` int(11) NOT NULL,
+  `type` varchar(150) NOT NULL,
+  `coins` float NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `transection_id` varchar(150) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `tbl_transections`
+  ADD PRIMARY KEY (`t_id`);
+
+
+ALTER TABLE `tbl_transections`
+  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+
+
+view_counts
+
+
+GB - United Kingdom
+AU - Australia
+US - United States
+IN - India
+CA - Canada
+NZ - New Zealand
+
+
+https://prnt.sc/jsvPriHd8KLc
+
+https://prnt.sc/CbeGdyZ3WAuI
+
+
+https://prnt.sc/KHaTgE0ulMhF
+
+
+
+
+w_trailer
