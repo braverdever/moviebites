@@ -1,24 +1,18 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 12, 2025 at 01:04 PM
--- Server version: 5.7.23-23
--- PHP Version: 8.1.32
+-- Host: 127.0.0.1
+-- Generation Time: May 21, 2025 at 10:12 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
--- Database: `etern5yx_shortvid`
+-- Database: `quizx`
 --
 
 -- --------------------------------------------------------
@@ -67,7 +61,7 @@ CREATE TABLE `chat_rooms` (
   `user_id` varchar(255) NOT NULL,
   `name` varchar(100) NOT NULL,
   `status` varchar(10) NOT NULL DEFAULT '1',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -152,6 +146,31 @@ CREATE TABLE `editional_vocab` (
 
 INSERT INTO `editional_vocab` (`id`, `date`, `title`, `descr`, `image`) VALUES
 (1, '22/10/18', '[The Hindu] Amritsar disaster: avoidable tragedy', '<p>In a shocking and terrible disaster, at least 61 people were crushed by a train at Amritsar in Punjab on Friday while they were watching the burning of Ravan effigy on the occasion of Dussehra. The Amritsar train accident took place near Joda Phatak area of Choura Bazar. The train was en route from Jalandhar to Amritsar.</p>\r\n', '17413_images (2).jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `episodes`
+--
+
+CREATE TABLE `episodes` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `duration` int(11) DEFAULT NULL,
+  `release_date` date DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `episodes`
+--
+
+INSERT INTO `episodes` (`id`, `title`, `description`, `duration`, `release_date`, `created_at`, `updated_at`) VALUES
+(1, 'Episode 1: The Beginning', NULL, NULL, NULL, '2025-05-14 12:10:55', '2025-05-14 12:10:55'),
+(2, 'Episode 2: The Mystery', NULL, NULL, NULL, '2025-05-14 12:10:55', '2025-05-14 12:10:55'),
+(3, 'Episode 3: The Reveal', NULL, NULL, NULL, '2025-05-14 12:10:55', '2025-05-14 12:10:55');
 
 -- --------------------------------------------------------
 
@@ -282,6 +301,30 @@ INSERT INTO `messages` (`message_id`, `chat_room_id`, `user_id`, `message`, `cre
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `transaction_id` int(11) DEFAULT NULL,
+  `payment_date` datetime DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `payment_status` varchar(20) DEFAULT NULL,
+  `method` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `user_id`, `transaction_id`, `payment_date`, `amount`, `payment_status`, `method`) VALUES
+(1, 1, NULL, '2024-06-01 00:00:00', '9.99', NULL, 'Credit Card'),
+(2, 1, NULL, '2024-06-05 00:00:00', '2.99', NULL, 'PayPal');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `question`
 --
 
@@ -380,7 +423,7 @@ CREATE TABLE `tbl_category` (
   `cid` int(11) NOT NULL,
   `category_name` varchar(255) NOT NULL,
   `category_image` varchar(255) NOT NULL,
-  `status` int(1) NOT NULL DEFAULT '1'
+  `status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -427,7 +470,7 @@ CREATE TABLE `tbl_favorite` (
   `f_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `w_id` int(11) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -453,7 +496,7 @@ CREATE TABLE `tbl_membership` (
   `m_price_au` float NOT NULL,
   `m_price_nz` float NOT NULL,
   `m_price_inr` float NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -462,7 +505,12 @@ CREATE TABLE `tbl_membership` (
 
 INSERT INTO `tbl_membership` (`m_id`, `m_name`, `m_duration`, `m_price`, `m_price_uk`, `m_price_cd`, `m_price_au`, `m_price_nz`, `m_price_inr`, `created_at`) VALUES
 (2, 'Weekly VIP', '7', 15.55, 10, 25, 28, 30, 999, '2024-05-27 14:44:36'),
-(3, 'Yearly VIP', '365', 300, 200, 400, 450, 430, 19999, '2024-05-27 14:45:43');
+(3, 'Yearly VIP', '365', 300, 200, 400, 450, 430, 19999, '2024-05-27 14:45:43'),
+(4, 'Basic Plan', '30', 9.99, 7.99, 12.99, 14.99, 15.99, 799, '2025-05-15 20:40:51'),
+(5, 'Premium Plan', '90', 24.99, 19.99, 32.99, 37.99, 39.99, 1999, '2025-05-15 20:40:51'),
+(6, 'Ultimate Plan', '365', 99.99, 79.99, 129.99, 149.99, 159.99, 7999, '2025-05-15 20:40:51'),
+(7, 'Premium Plan', '90', 24.99, 19.99, 32.99, 37.99, 39.99, 1999, '2025-05-15 20:41:25'),
+(8, 'Premium Plan', '90', 24.99, 19.99, 32.99, 37.99, 39.99, 1999, '2025-05-15 20:42:00');
 
 -- --------------------------------------------------------
 
@@ -679,7 +727,7 @@ CREATE TABLE `tbl_subcategory_list` (
   `cid` int(11) NOT NULL,
   `menu_name` varchar(255) NOT NULL,
   `menu_image` varchar(255) DEFAULT NULL,
-  `status` int(1) NOT NULL DEFAULT '1'
+  `status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -703,7 +751,7 @@ CREATE TABLE `tbl_transections` (
   `coins` float NOT NULL,
   `user_id` int(11) NOT NULL,
   `transection_id` varchar(150) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -808,7 +856,7 @@ CREATE TABLE `tbl_views` (
   `view_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `w_id` int(11) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -838,7 +886,7 @@ CREATE TABLE `tbl_web_series` (
   `is_slider` int(11) NOT NULL,
   `spring_into_saturday` int(11) NOT NULL,
   `w_especially_date` date NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `top_picks` int(11) NOT NULL,
   `w_type` varchar(150) NOT NULL,
   `w_status` int(11) NOT NULL,
@@ -854,7 +902,53 @@ INSERT INTO `tbl_web_series` (`w_id`, `cat_id`, `w_name`, `w_image`, `w_sub_titl
 (3, '17', 'Testing ', '66812_IMG-20240507-WA0005.jpg', 'Test', 'Teet', 1, 0, 1, 0, 1, 1, '0000-00-00', '2024-05-07 17:28:57', 0, '', 0, ''),
 (6, '21', 'Vampire Hunters', '62557_TestImage.png', 'Vampires', 'While the show is mainly a drama with frequent comic relief, most episodes blend different genres, including horror, martial arts, romance, melodrama, farce, fantasy, supernatural, comedy, and, in one episode, musical comedy.', 1, 0, 1, 0, 1, 23, '0000-00-00', '2024-05-07 18:05:51', 0, '', 0, ''),
 (32, '26', 'Biological', '59875_Placeholder.jpg', 'Biological Drama ', 'Biological Drama ', 1, 1000000, 1, 1, 1, 0, '1970-01-01', '2024-09-06 17:41:14', 1, 'Shows', 1, 'https://iblytest.sfo3.cdn.digitaloceanspaces.com/wp-content/uploads/videos/biological_test_snippets/chunk_000.mp4'),
-(33, '27', 'Gender Test', '45887_Placeholder.jpg', 'Gender Test', 'Gender Test', 1, 1000000, 1, 1, 1, 0, '1970-01-01', '2024-09-08 10:05:36', 1, 'Shows', 1, 'https://iblytest.sfo3.cdn.digitaloceanspaces.com/wp-content/uploads/videos/gender_test_snippets/chunk_000.mp4');
+(33, '27', 'Gender Test', '45887_Placeholder.jpg', 'Gender Test', 'Gender Test', 1, 1000000, 1, 1, 1, 0, '1970-01-01', '2024-09-08 10:05:36', 1, 'Shows', 1, 'https://iblytest.sfo3.cdn.digitaloceanspaces.com/wp-content/uploads/videos/gender_test_snippets/chunk_000.mp4'),
+(34, '27', 'Hidden', '', 'Bunny', 'Bunny', 0, 1000000, 0, 1, 0, 0, '1970-01-01', '2025-05-19 10:38:35', 0, 'Movies', 1, 'Trailer');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `payment_method` varchar(50) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `user_id`, `amount`, `date`, `payment_method`, `status`, `description`) VALUES
+(1, 1, '9.99', '2024-06-01 00:00:00', NULL, NULL, 'Subscription Payment'),
+(2, 1, '2.99', '2024-06-05 00:00:00', NULL, NULL, 'Episode Unlock');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `unlocked_episodes`
+--
+
+CREATE TABLE `unlocked_episodes` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `episode_id` int(11) DEFAULT NULL,
+  `unlocked_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `unlocked_episodes`
+--
+
+INSERT INTO `unlocked_episodes` (`id`, `user_id`, `episode_id`, `unlocked_at`) VALUES
+(1, 1, 1, '2024-06-02 10:00:00'),
+(2, 1, 2, '2024-06-03 11:00:00');
 
 -- --------------------------------------------------------
 
@@ -874,7 +968,7 @@ CREATE TABLE `user` (
   `token` text NOT NULL,
   `udid` text NOT NULL,
   `status` varchar(50) NOT NULL DEFAULT '1',
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `is_login` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -883,7 +977,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `user_type`, `fb_id`, `name`, `email`, `password`, `phone`, `image`, `token`, `udid`, `status`, `date`, `is_login`) VALUES
-(1, 'Google', '109231778554785561027', 'Niraj Ajudiya', 'niraj@illumeably.com', '', '', 'https://lh3.googleusercontent.com/a/ACg8ocLKfwnnBvkwjiGIit4vAxOGjNNZ1OH-RmYjuPb5wtSkF__4IA=s320', 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImVlMTkzZDQ2NDdhYjRhMzU4NWFhOWIyYjNiNDg0YTg3YWE2OGJiNDIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI3NjM3MzcyMTI4MTctYmFzY24wczIyNDg3czJ2cmsybjBjNmJ1bzFiMTcxMHEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI3NjM3MzcyMTI4MTctYmFzY24wczIyNDg3czJ2cmsybjBjNmJ1bzFiMTcxMHEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDkyMzE3Nzg1NTQ3ODU1NjEwMjciLCJoZCI6ImlsbHVtZWFibHkuY29tIiwiZW1haWwiOiJuaXJhakBpbGx1bWVhYmx5LmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiUDZIa18wMjItLW1QNVlBZnprT2xlQSIsIm5vbmNlIjoiZ1UtMWtUOG55UXVqNGVELUtyM2F5OU5rT1U0d1JwVXg4clpiOEtsQTdCOCIsIm5hbWUiOiJOaXJhaiBBanVkaXlhIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0xLZndubkJ2a3dqaUdJaXQ0dkF4T0dqTk5aMU9ILVJtWWp1UGI1d3RTa0ZfXzRJQT1zOTYtYyIsImdpdmVuX25hbWUiOiJOaXJhaiIsImZhbWlseV9uYW1lIjoiQWp1ZGl5YSIsImlhdCI6MTc0MjI4MTg5OSwiZXhwIjoxNzQyMjg1NDk5fQ.iCJcFnrpSbqBUZzf4GiDL75t_YkJ5MIZCU1AuKwI1LENn2X5ku_TXtMu4EKE5bvoalg3vs3SqkEfOHQjyvthO2rGOjIQgL6RBOmJYNDXBbH-s53Hyn07ZxhOAugBbuPa5fKrBnKqEJGHftfc-Ol9tweAOGXd5aWafPd9Qs3i2ym5BUcZLFbNvzKFGjvkBnz6UtY5A1ieLzliUKfiIp2P6hPwpU-HE93t16wyPSvKNzh54lqoEf3WUFSgNsr4vhNpiSE8LjgJQc5T6K9rWvQBdf_l5lwFv5sWds3ulrx-k7ClKz1orrZUgjcqz8M38_1zvk80_tIM05S1Nt69PHdXvg', 'DE37B1BE-B67E-46F2-B7AF-E29D48D09231', '1', '2025-03-18 07:11:40', 1);
+(1, 'Google', '109231778554785561027', 'Niraj Ajudiya', 'niraj@illumeably.com', '', '', 'https://lh3.googleusercontent.com/a/ACg8ocLKfwnnBvkwjiGIit4vAxOGjNNZ1OH-RmYjuPb5wtSkF__4IA=s320', 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImVlMTkzZDQ2NDdhYjRhMzU4NWFhOWIyYjNiNDg0YTg3YWE2OGJiNDIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI3NjM3MzcyMTI4MTctYmFzY24wczIyNDg3czJ2cmsybjBjNmJ1bzFiMTcxMHEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI3NjM3MzcyMTI4MTctYmFzY24wczIyNDg3czJ2cmsybjBjNmJ1bzFiMTcxMHEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDkyMzE3Nzg1NTQ3ODU1NjEwMjciLCJoZCI6ImlsbHVtZWFibHkuY29tIiwiZW1haWwiOiJuaXJhakBpbGx1bWVhYmx5LmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiUDZIa18wMjItLW1QNVlBZnprT2xlQSIsIm5vbmNlIjoiZ1UtMWtUOG55UXVqNGVELUtyM2F5OU5rT1U0d1JwVXg4clpiOEtsQTdCOCIsIm5hbWUiOiJOaXJhaiBBanVkaXlhIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0xLZndubkJ2a3dqaUdJaXQ0dkF4T0dqTk5aMU9ILVJtWWp1UGI1d3RTa0ZfXzRJQT1zOTYtYyIsImdpdmVuX25hbWUiOiJOaXJhaiIsImZhbWlseV9uYW1lIjoiQWp1ZGl5YSIsImlhdCI6MTc0MjI4MTg5OSwiZXhwIjoxNzQyMjg1NDk5fQ.iCJcFnrpSbqBUZzf4GiDL75t_YkJ5MIZCU1AuKwI1LENn2X5ku_TXtMu4EKE5bvoalg3vs3SqkEfOHQjyvthO2rGOjIQgL6RBOmJYNDXBbH-s53Hyn07ZxhOAugBbuPa5fKrBnKqEJGHftfc-Ol9tweAOGXd5aWafPd9Qs3i2ym5BUcZLFbNvzKFGjvkBnz6UtY5A1ieLzliUKfiIp2P6hPwpU-HE93t16wyPSvKNzh54lqoEf3WUFSgNsr4vhNpiSE8LjgJQc5T6K9rWvQBdf_l5lwFv5sWds3ulrx-k7ClKz1orrZUgjcqz8M38_1zvk80_tIM05S1Nt69PHdXvg', 'DE37B1BE-B67E-46F2-B7AF-E29D48D09231', '1', '2025-05-21 07:50:01', 1);
 
 -- --------------------------------------------------------
 
@@ -896,7 +990,7 @@ CREATE TABLE `user_login` (
   `user_id` int(11) NOT NULL,
   `token` text NOT NULL,
   `udid` text NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `login_status` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -954,6 +1048,35 @@ INSERT INTO `user_login` (`login_id`, `user_id`, `token`, `udid`, `created_at`, 
 (47, 126, '', '', '2024-07-24 16:40:47', 1),
 (48, 1, 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImVlMTkzZDQ2NDdhYjRhMzU4NWFhOWIyYjNiNDg0YTg3YWE2OGJiNDIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI3NjM3MzcyMTI4MTctYmFzY24wczIyNDg3czJ2cmsybjBjNmJ1bzFiMTcxMHEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI3NjM3MzcyMTI4MTctYmFzY24wczIyNDg3czJ2cmsybjBjNmJ1bzFiMTcxMHEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDkyMzE3Nzg1NTQ3ODU1NjEwMjciLCJoZCI6ImlsbHVtZWFibHkuY29tIiwiZW1haWwiOiJuaXJhakBpbGx1bWVhYmx5LmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiWm52eVJ2eFRGVFBHQnNFbktuRTJUZyIsIm5vbmNlIjoicVczZkVXQUZqd3hzZllqekRNLXkwOV9aVjJuUkNHMmRrdVEyZ1dZUzN2RSIsIm5hbWUiOiJOaXJhaiBBanVkaXlhIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0xLZndubkJ2a3dqaUdJaXQ0dkF4T0dqTk5aMU9ILVJtWWp1UGI1d3RTa0ZfXzRJQT1zOTYtYyIsImdpdmVuX25hbWUiOiJOaXJhaiIsImZhbWlseV9uYW1lIjoiQWp1ZGl5YSIsImlhdCI6MTc0MjI4MDQ2MywiZXhwIjoxNzQyMjg0MDYzfQ.GhJEzvN2Cc4Ip32HgEfqrjGeqzWJDM7PBfTvIgD6RPN90Jqp1XdwYVPpRvoC9rfR0Q-8WOKKLMh2lpSAz_yPGghI21xZxrEWcofah7lhEhg9NIcowVAVRwVv1Bd-m42tCQnZag9GeGCRqOWscESbmRViSpGEVqSAd3VtRU8WXyVfk6ALoTuHiF73ryirglMpcLgIX-m7chjYXRKPubWw6YZqbZjZuGpIQ1-fq6hkGtHIkOHllPlkcUp8JfjP7LECgSL47AOrvr2yK31aEK9Uy1JK6568CTiz7DMq6H6EtlotF1qKdN9rvzIeNQ6jQLmOzdjetar7I9PnoT4xux46pA', 'DE37B1BE-B67E-46F2-B7AF-E29D48D09231', '2025-03-18 12:17:44', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_membership`
+--
+
+CREATE TABLE `user_membership` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `membership_id` int(11) NOT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_membership`
+--
+
+INSERT INTO `user_membership` (`id`, `user_id`, `membership_id`, `start_date`, `end_date`, `created_at`) VALUES
+(1, 1, 1, '2025-04-30 00:00:00', '2025-05-30 00:00:00', '2025-05-15 20:40:51'),
+(2, 2, 2, '2025-03-31 00:00:00', '2025-06-29 00:00:00', '2025-05-15 20:40:51'),
+(3, 3, 3, '2024-11-16 00:00:00', '2025-11-16 00:00:00', '2025-05-15 20:40:51'),
+(4, 4, 1, '2025-03-16 00:00:00', '2025-04-15 00:00:00', '2025-05-15 20:40:51'),
+(5, 5, 2, '2025-01-15 00:00:00', '2025-04-15 00:00:00', '2025-05-15 20:40:51'),
+(6, 1, 5, '2025-04-15 00:00:00', '2025-07-14 00:00:00', '2025-05-15 20:42:00'),
+(7, 1, 7, '2025-04-15 00:00:00', '2025-07-14 00:00:00', '2025-05-15 20:42:00'),
+(8, 1, 8, '2025-04-15 00:00:00', '2025-07-14 00:00:00', '2025-05-15 20:42:00');
+
 --
 -- Indexes for dumped tables
 --
@@ -989,6 +1112,12 @@ ALTER TABLE `editional_vocab`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `episodes`
+--
+ALTER TABLE `episodes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `hot_gk`
 --
 ALTER TABLE `hot_gk`
@@ -1005,6 +1134,12 @@ ALTER TABLE `latest_news`
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`message_id`);
+
+--
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `question`
@@ -1109,6 +1244,18 @@ ALTER TABLE `tbl_web_series`
   ADD PRIMARY KEY (`w_id`);
 
 --
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `unlocked_episodes`
+--
+ALTER TABLE `unlocked_episodes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -1119,6 +1266,14 @@ ALTER TABLE `user`
 --
 ALTER TABLE `user_login`
   ADD PRIMARY KEY (`login_id`);
+
+--
+-- Indexes for table `user_membership`
+--
+ALTER TABLE `user_membership`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `membership_id` (`membership_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -1155,6 +1310,12 @@ ALTER TABLE `editional_vocab`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `episodes`
+--
+ALTER TABLE `episodes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `hot_gk`
 --
 ALTER TABLE `hot_gk`
@@ -1171,6 +1332,12 @@ ALTER TABLE `latest_news`
 --
 ALTER TABLE `messages`
   MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+
+--
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `question`
@@ -1212,7 +1379,7 @@ ALTER TABLE `tbl_favorite`
 -- AUTO_INCREMENT for table `tbl_membership`
 --
 ALTER TABLE `tbl_membership`
-  MODIFY `m_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `m_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_notification`
@@ -1272,21 +1439,35 @@ ALTER TABLE `tbl_views`
 -- AUTO_INCREMENT for table `tbl_web_series`
 --
 ALTER TABLE `tbl_web_series`
-  MODIFY `w_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `w_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `unlocked_episodes`
+--
+ALTER TABLE `unlocked_episodes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_login`
 --
 ALTER TABLE `user_login`
   MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
-COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+--
+-- AUTO_INCREMENT for table `user_membership`
+--
+ALTER TABLE `user_membership`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+COMMIT;

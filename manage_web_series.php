@@ -53,29 +53,29 @@ if($_SESSION['id']!=2)
 
 	}
 }
-if($_GET['type'] && $_GET['type'] == 'recommendad'){
+if(isset($_GET['type']) && $_GET['type'] == 'recommendad'){
 	$type = 'Recommendations';
 	$quotes_qry="SELECT * FROM tbl_web_series INNER JOIN tbl_category ON tbl_category.cid = tbl_web_series.cat_id where tbl_web_series.recommendation = '1' ORDER BY tbl_web_series.w_id ASC"; 
 	$result=mysqli_query($mysqli,$quotes_qry);
-} else if($_GET['type'] && $_GET['type'] == 'most_trending'){
+} else if(isset($_GET['type']) && $_GET['type'] == 'most_trending'){
 	$type = 'Most Trendings';
 	$quotes_qry="SELECT * FROM tbl_web_series INNER JOIN tbl_category ON tbl_category.cid = tbl_web_series.cat_id where tbl_web_series.trending = '1' ORDER BY tbl_web_series.w_id ASC"; 
 	$result=mysqli_query($mysqli,$quotes_qry);
-}else if($_GET['type'] && $_GET['type'] == 'banner'){
+}else if(isset($_GET['type']) && $_GET['type'] == 'banner'){
 	$type = 'Banners';
 	echo "<style>.dataTables_filter{ display: none;}</style>";
 	
 	$quotes_qry="SELECT * FROM tbl_web_series INNER JOIN tbl_category ON tbl_category.cid = tbl_web_series.cat_id where tbl_web_series.is_slider = '1' ORDER BY tbl_web_series.w_id ASC"; 
 	$result=mysqli_query($mysqli,$quotes_qry);
-}else if($_GET['type'] && $_GET['type'] == 'spring_into_saturday'){
+}else if(isset($_GET['type']) && $_GET['type'] == 'spring_into_saturday'){
 	$type = 'Spring into Saturday';
 	$quotes_qry="SELECT * FROM tbl_web_series INNER JOIN tbl_category ON tbl_category.cid = tbl_web_series.cat_id where tbl_web_series.spring_into_saturday = '1' ORDER BY tbl_web_series.w_id ASC"; 
 	$result=mysqli_query($mysqli,$quotes_qry);
-}else if($_GET['type'] && $_GET['type'] == 'top_picks'){
+}else if(isset($_GET['type']) && $_GET['type'] == 'top_picks'){
 	$type = 'Top Picks';
 	$quotes_qry="SELECT * FROM tbl_web_series INNER JOIN tbl_category ON tbl_category.cid = tbl_web_series.cat_id where tbl_web_series.top_picks = '1' ORDER BY tbl_web_series.w_id ASC"; 
 	$result=mysqli_query($mysqli,$quotes_qry);
-}else if($_GET['type'] && $_GET['type'] == 'new'){
+}else if(isset($_GET['type']) && $_GET['type'] == 'new'){
 	$type = 'New Releases';
 	$quotes_qry="SELECT * FROM tbl_web_series INNER JOIN tbl_category ON tbl_category.cid = tbl_web_series.cat_id where tbl_web_series.is_new = '1' ORDER BY tbl_web_series.w_id ASC"; 
 	$result=mysqli_query($mysqli,$quotes_qry);
@@ -163,10 +163,16 @@ if($_GET['type'] && $_GET['type'] == 'recommendad'){
 
 							    <td class="text-center"><?php if($row['w_image'] != ''){ ?> <img src="images/w_image/<?php echo $row['w_image'];?>" width="90" height="90" /><?php } ?></td>
 								<td class="text-center"><div class="form-check form-switch">
-  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" <?php if($row['w_status'] == '1'){ echo "checked"; ?> onclick="javascript:window.location.href = '?active=0&w_did=<?php echo $row['w_id']; ?>&type=<?php echo $_GET['type']; ?>';" <?php }else{ ?> onclick="javascript:window.location.href = '?active=1&w_did=<?php echo $row['w_id']; ?>&type=<?php echo $_GET['type']; ?>';" <?php } ?> >
-  <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-</div></td>
-								
+								<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+								 <?php if ($row['w_status'] == '1') {
+									echo "checked"; ?>
+										onclick="javascript:window.location.href = '?active=0&w_did=<?php echo $row['w_id']; ?>&type=<?php echo isset($_GET['type']) && $_GET['type']; ?>';"
+									<?php } else { ?>
+										onclick="javascript:window.location.href = '?active=1&w_did=<?php echo $row['w_id']; ?>&type=<?php echo isset($_GET['type']) && $_GET['type']; ?>';"
+									<?php } ?>>
+								<label class="form-check-label" for="flexSwitchCheckDefault"></label>
+								</div>
+								</td>
 								<td class="text-center">
 									<ul class="icons-list">
 										<li class="dropdown">

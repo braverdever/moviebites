@@ -55,13 +55,13 @@
 									  <!-- <li class="<?php if($currentFile=="manage_category.php" or $currentFile=="add_category.php"){echo 'active';}?>"><a href="manage_category.php"><span>Categories</span></a></li> --> 
 									 
 									   <li class="<?php if($currentFile=="add_web_series.php" && $_GET['add'] == 'yes'){echo 'active';}?>"><a href="manage_web_series.php">Web Series</a></li>
-									  <li class="<?php if($currentFile=="manage_web_series.php" && $_GET['type'] == 'banner'){echo 'active';}?>"><a href="manage_web_series.php?type=banner">Banners</a></li>
-  									  <li class="<?php if($currentFile=="manage_web_series.php" && $_GET['type'] == 'most_trending'){echo 'active';}?>"><a href="manage_web_series.php?type=most_trending">Most Trending</a></li>
-                                      <li class="<?php if($currentFile=="manage_web_series.php" && $_GET['type'] == 'top_picks'){echo 'active';}?>"><a href="manage_web_series.php?type=top_picks">Top Picks</a></li>
-  									   <li class="<?php if($currentFile=="manage_web_series.php" && $_GET['type'] == 'new'){echo 'active';}?>"><a href="manage_web_series.php?type=new">New Releases</a></li>
-  									  <li class="<?php if($currentFile=="manage_web_series.php" && $_GET['type'] == 'spring_into_saturday'){echo 'active';}?>"><a href="manage_web_series.php?type=spring_into_saturday">Spring into Saturday</a></li>
-                                      <li class="<?php if($currentFile=="manage_web_series.php" && $_GET['type'] == 'recommendad'){echo 'active';}?>"><a href="manage_web_series.php?type=recommendad">  Recommended Web series</a></li>
-									  <!-- <li class="<?php if($currentFile=="manage_web_series.php" && $_GET['type'] == ''){echo 'active';}?>"><a href="manage_web_series.php">Web Series</a></li> -->
+									  <li class="<?php if($currentFile=="manage_web_series.php" && isset($_GET['type']) && $_GET['type'] == 'banner'){echo 'active';}?>"><a href="manage_web_series.php?type=banner">Banners</a></li>
+  									  <li class="<?php if($currentFile=="manage_web_series.php" && isset($_GET['type']) && $_GET['type'] == 'most_trending'){echo 'active';}?>"><a href="manage_web_series.php?type=most_trending">Most Trending</a></li>
+                                      <li class="<?php if($currentFile=="manage_web_series.php" && isset($_GET['type']) && $_GET['type'] == 'top_picks'){echo 'active';}?>"><a href="manage_web_series.php?type=top_picks">Top Picks</a></li>
+  									   <li class="<?php if($currentFile=="manage_web_series.php" && isset($_GET['type']) && $_GET['type'] == 'new'){echo 'active';}?>"><a href="manage_web_series.php?type=new">New Releases</a></li>
+  									  <li class="<?php if($currentFile=="manage_web_series.php" && isset($_GET['type']) && $_GET['type'] == 'spring_into_saturday'){echo 'active';}?>"><a href="manage_web_series.php?type=spring_into_saturday">Spring into Saturday</a></li>
+                                      <li class="<?php if($currentFile=="manage_web_series.php" && isset($_GET['type']) && $_GET['type'] == 'recommendad'){echo 'active';}?>"><a href="manage_web_series.php?type=recommendad">  Recommended Web series</a></li>
+									  <!-- <li class="<?php if($currentFile=="manage_web_series.php" && isset($_GET['type']) && $_GET['type'] == ''){echo 'active';}?>"><a href="manage_web_series.php">Web Series</a></li> -->
 									</ul>
 								  </li>
 								  
