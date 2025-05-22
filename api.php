@@ -381,56 +381,70 @@ else if(isset($_GET['slider']))
 
 else if(isset($_GET['allwebseries'])){
 	
- 		$jsonObj= array();
-		$query="SELECT * FROM tbl_web_series where w_status = 1 ORDER BY w_id DESC";
-		
-		$sql = mysqli_query($mysqli,$query)or die(mysql_error());
-		while($data = mysqli_fetch_assoc($sql))
-		{
-			$qry="SELECT * FROM tbl_category where cid='".$data['cat_id']."'";
+    $jsonObj= array();
+    $query="SELECT * FROM tbl_web_series where w_status = 1 ORDER BY w_id DESC";
+    $sql = mysqli_query($mysqli,$query)or die(mysql_error());
+    while($data = mysqli_fetch_assoc($sql))
+    {
+        // Category info
+        $qry="SELECT * FROM tbl_category where cid='".$data['cat_id']."'";
+        $result=mysqli_query($mysqli,$qry);
+        $cat_row=mysqli_fetch_assoc($result);
 
-			$result=mysqli_query($mysqli,$qry);
+        $row['w_id'] = $data['w_id'];
+        $row['w_type'] = $data['w_type'];
+        $row['category_id'] = $data['cat_id'];
+        $row['category_name'] = isset($cat_row['category_name']) ? $cat_row['category_name'] : '';
+        $row['w_name'] = $data['w_name'];
+        $row['w_image'] = $file_path.'images/w_image/'.$data['w_image'];
+        $row['w_trailer'] = $data['w_trailer'];
+        $row['w_sub_title'] = $data['w_sub_title'];
+        $row['w_description'] = $data['w_description'];
+        $row['view_counts'] = $data['view_counts'];
+        $row['w_especially_date'] = isset($data['w_especially_date']) ? date("Y-m-d", strtotime($data['w_especially_date'])) : null;
 
-			$cat_row=mysqli_fetch_assoc($result);
-			if(isset($cat_row) ){
-				$row['category_name'] = $cat_row['category_name'];
-			}else{
-				$row['category_name'] = '';
-			}
-			$qry_fv="SELECT * FROM tbl_favorite where w_id='".$data['w_id']."' && user_id='".$_POST['user_id']."' ";
-			$result_fv=mysqli_query($mysqli,$qry_fv);
-			if(mysqli_num_rows($result_fv) > 0 ){
-				$row['is_favorite'] = true;
-			}else{
-				$row['is_favorite'] = false;
-			}
-			$row['w_id'] = $data['w_id'];
-			$row['w_type'] = $data['w_type'];
-			$row['w_trailer'] = $data['w_trailer'];
-			$row['w_especially_date'] = date("Y-m-d", strtotime($data['w_especially_date']));
-			$row['w_name'] = $data['w_name'];
-			$row['view_counts'] = $data['view_counts'];
-			$row['w_sub_title'] = $data['w_sub_title'];
-			$row['w_description'] = $data['w_description'];
-			$row['w_image'] = $file_path.'images/w_image/'.$data['w_image'];
-			array_push($jsonObj,$row);
-		
-		}
-			if(!empty($jsonObj)){
-				$reponseobj['message'] = 'successful get data';
-				$reponseobj['code'] = 200;    
-					
-				$reponseobj['data'] =$jsonObj;
-			}else{
-				$reponseobj['message'] = 'successful get data';
-				$reponseobj['code'] = 400;
-				$reponseobj['data'] =$jsonObj;
-			}
-			
-		header( 'Content-Type: application/json; charset=utf-8' );
-		
-	    echo $val= str_replace('\\/', '/', json_encode($reponseobj,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-		die();
+        // Flags/checkboxes
+        $row['recommendation'] = isset($data['recommendation']) ? $data['recommendation'] : null;
+        $row['top_picks'] = isset($data['top_picks']) ? $data['top_picks'] : null;
+        $row['new_release'] = isset($data['new_release']) ? $data['new_release'] : null;
+        $row['trending'] = isset($data['trending']) ? $data['trending'] : null;
+        $row['is_new'] = isset($data['is_new']) ? $data['is_new'] : null;
+        $row['spring_into_saturday'] = isset($data['spring_into_saturday']) ? $data['spring_into_saturday'] : null;
+        $row['display_on_banner'] = isset($data['display_on_banner']) ? $data['display_on_banner'] : null;
+
+        // Main m3u8 link
+        $row['main_m3u8_link'] = isset($data['main_m3u8_link']) ? $data['main_m3u8_link'] : null;
+
+        // Episodes (if you have a tbl_episodes table)
+        // $episodes = [];
+        // $ep_query = "SELECT * FROM tbl_episodes WHERE w_id = '".$data['w_id']."'";
+        // $ep_sql = @mysqli_query($mysqli, $ep_query);
+        // if($ep_sql) {
+        //     while($ep = mysqli_fetch_assoc($ep_sql)) {
+        //         $episodes[] = $ep; // or select only the fields you want
+        //     }
+        // }
+        // $row['episodes'] = $episodes;
+
+        // Favorite status (as before)
+        $qry_fv="SELECT * FROM tbl_favorite where w_id='".$data['w_id']."' && user_id='".$_POST['user_id']."' ";
+        $result_fv=mysqli_query($mysqli,$qry_fv);
+        $row['is_favorite'] = (mysqli_num_rows($result_fv) > 0);
+
+        array_push($jsonObj, $row);
+    }
+    if(!empty($jsonObj)){
+        $reponseobj['message'] = 'successful get data';
+        $reponseobj['code'] = 200;    
+        $reponseobj['data'] =$jsonObj;
+    }else{
+        $reponseobj['message'] = 'successful get data';
+        $reponseobj['code'] = 400;
+        $reponseobj['data'] =$jsonObj;
+    }
+    header( 'Content-Type: application/json; charset=utf-8' );
+    echo $val= str_replace('\\/', '/', json_encode($reponseobj,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+    die();
 }
 
 else if(isset($_GET['get_stripe_key']))
