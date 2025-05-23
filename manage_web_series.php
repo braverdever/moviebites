@@ -180,8 +180,11 @@ if(isset($_GET['type']) && $_GET['type'] == 'recommendad'){
 												<i class="icon-menu9"></i>
 											</a>
 											<ul class="dropdown-menu dropdown-menu-right">
-												<li><a href="add_web_series.php?w_id=<?php echo $row['w_id'];?>"><i class="glyphicon glyphicon-edit"></i> EDIT</a></li>
-												<li><a href="?w_id=<?php echo $row['w_id'];?>&type=<?php echo $_GET['type']; ?>" title="Delete" onclick="return confirm('Are you sure you want to delete this Web Series?');"><i class="glyphicon glyphicon-trash"></i> DELETE</a></li>												
+												<li><a href="add_web_series.php?w_id=<?php echo $row['w_id']; ?>"><i class="glyphicon glyphicon-edit"></i> EDIT</a>
+												</li>
+												<li><a href="?w_id=<?php echo $row['w_id']; ?>&type=<?php echo isset($_GET['type']) && $_GET['type']; ?>" title="Delete"
+														onclick="return confirm('Are you sure you want to delete this Web Series?');"><i
+															class="glyphicon glyphicon-trash"></i> DELETE</a></li>
 											</ul>
 										</li>
 									</ul>
