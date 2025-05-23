@@ -210,7 +210,7 @@ include("includes/head.php");
 			<?php
 			ob_start();
 
-			header("location: add_web_series.php?w_id=" . $_POST['w_id']);
+			header("location: manage_web_series.php");
 			ob_end_clean();
 
 			//exit;
